@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3107BAC216C123E0099A95C /* libPolyPadLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3107BAB216C123E0099A95C /* libPolyPadLib.a */; };
 		C70651A01B7CC4A20005FDD9 /* app.c in Sources */ = {isa = PBXBuildFile; fileRef = C706519F1B7CC4A20005FDD9 /* app.c */; };
 		C70651A81B7CC56F0005FDD9 /* simulator-osx.c in Sources */ = {isa = PBXBuildFile; fileRef = C70651A71B7CC56F0005FDD9 /* simulator-osx.c */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B3107BAB216C123E0099A95C /* libPolyPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPolyPadLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C706519F1B7CC4A20005FDD9 /* app.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = app.c; path = ../../src/app.c; sourceTree = "<group>"; };
 		C70651A11B7CC4B20005FDD9 /* app_defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = app_defs.h; path = ../../include/app_defs.h; sourceTree = "<group>"; };
 		C70651A21B7CC4B20005FDD9 /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = app.h; path = ../../include/app.h; sourceTree = "<group>"; };
@@ -36,12 +38,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3107BAC216C123E0099A95C /* libPolyPadLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B3107BAA216C123E0099A95C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3107BAB216C123E0099A95C /* libPolyPadLib.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C70651A51B7CC4D60005FDD9 /* source */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +77,7 @@
 				C70651A61B7CC4DF0005FDD9 /* include */,
 				C70651A51B7CC4D60005FDD9 /* source */,
 				C71365111B7CC2E500AB8010 /* Products */,
+				B3107BAA216C123E0099A95C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

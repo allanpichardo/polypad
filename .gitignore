@@ -48,3 +48,15 @@ tools/osx/simulator.xcodeproj/xcuserdata/davehodder.xcuserdatad/xcschemes/xcsche
 
 *.xcbkptlist
 tools/osx/simulator.xcodeproj/xcuserdata
+
+# Created by https://www.gitignore.io/api/visualstudiocode
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
+# End of https://www.gitignore.io/api/visualstudiocode

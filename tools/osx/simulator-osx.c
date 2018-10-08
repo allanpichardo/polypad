@@ -56,6 +56,16 @@ static const float TIMER_INTERVAL_S = 0.001; //s
 // it to the hardware, which also means you can debug it interactively.
 // ____________________________________________________________________________
 
+void hal_read_flash(u32 offset, u8 *data, u32 length)
+{
+    printf("...hal_read_flash(%d, (data), %d);\n", offset, length);
+}
+
+void hal_write_flash(u32 offset,const u8 *data, u32 length)
+{
+    printf("...hal_write_flash(%d, (data), %d);\n", offset, length);
+}
+
 void hal_plot_led(u8 type, u8 index, u8 red, u8 green, u8 blue)
 {
 	// send this up the MIDI.  Construct sysex:
@@ -310,6 +320,8 @@ static void timerCallback(CFRunLoopTimerRef timer, void * info)
 
 // ____________________________________________________________________________
 
+static u16 raw_ADC[64];
+
 int main(int argc, char * argv[])
 {
 	// open MIDI ports and wire them up
@@ -337,7 +349,7 @@ int main(int argc, char * argv[])
 	}
 
 	// now start things up
-	app_init();
+	app_init(raw_ADC);
 	
     // start a timer loop
     CFRunLoopSourceContext source_context;

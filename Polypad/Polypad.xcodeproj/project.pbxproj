@@ -1,0 +1,662 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B3107B94216BE9050099A95C /* app_defs.h in Headers */ = {isa = PBXBuildFile; fileRef = B3107B65216BE7AE0099A95C /* app_defs.h */; };
+		B3107B95216BE9050099A95C /* arpeggiator.h in Headers */ = {isa = PBXBuildFile; fileRef = B3107B66216BE7AE0099A95C /* arpeggiator.h */; };
+		B3107B96216BE9050099A95C /* app.h in Headers */ = {isa = PBXBuildFile; fileRef = B3107B67216BE7AE0099A95C /* app.h */; };
+		B3107B97216BE9050099A95C /* sequence.h in Headers */ = {isa = PBXBuildFile; fileRef = B3107B68216BE7AE0099A95C /* sequence.h */; };
+		B3107B98216BE91C0099A95C /* sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3107B6A216BE7AE0099A95C /* sequence.cpp */; };
+		B3107B99216BE91C0099A95C /* arpeggiator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3107B6B216BE7AE0099A95C /* arpeggiator.cpp */; };
+		B3107B9A216BE91C0099A95C /* app.c in Sources */ = {isa = PBXBuildFile; fileRef = B3107B6C216BE7AE0099A95C /* app.c */; };
+		B3107BA2216BEA3A0099A95C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3107BA1216BEA3A0099A95C /* main.cpp */; };
+		B3107BA9216BEA4B0099A95C /* libPolyPadLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3107B8F216BE8F70099A95C /* libPolyPadLib.a */; };
+		B3107BBF216C131E0099A95C /* libPolyPadLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3107B8F216BE8F70099A95C /* libPolyPadLib.a */; };
+		B3107BC3216C1AF80099A95C /* launchpad_pro.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3107B75216BE7AE0099A95C /* launchpad_pro.a */; };
+		B3107BC6216C1E7E0099A95C /* simulator-osx.c in Sources */ = {isa = PBXBuildFile; fileRef = B3107BC0216C16C00099A95C /* simulator-osx.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B3107BA6216BEA400099A95C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3107B5A216BE7510099A95C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3107B8E216BE8F70099A95C;
+			remoteInfo = PolyPadLib;
+		};
+		B3107BBD216C13120099A95C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3107B5A216BE7510099A95C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3107B8E216BE8F70099A95C;
+			remoteInfo = PolyPadLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3107B9D216BEA3A0099A95C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		B3107BAF216C12C60099A95C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B3107B65216BE7AE0099A95C /* app_defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_defs.h; sourceTree = "<group>"; };
+		B3107B66216BE7AE0099A95C /* arpeggiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arpeggiator.h; sourceTree = "<group>"; };
+		B3107B67216BE7AE0099A95C /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
+		B3107B68216BE7AE0099A95C /* sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sequence.h; sourceTree = "<group>"; };
+		B3107B6A216BE7AE0099A95C /* sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sequence.cpp; sourceTree = "<group>"; };
+		B3107B6B216BE7AE0099A95C /* arpeggiator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arpeggiator.cpp; sourceTree = "<group>"; };
+		B3107B6C216BE7AE0099A95C /* app.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = app.c; sourceTree = "<group>"; };
+		B3107B6E216BE7AE0099A95C /* Launchpad Pro-1.0.154.syx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Launchpad Pro-1.0.154.syx"; sourceTree = "<group>"; };
+		B3107B6F216BE7AE0099A95C /* stm32_flash.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stm32_flash.ld; path = ../stm32_flash.ld; sourceTree = "<group>"; };
+		B3107B70216BE7AE0099A95C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		B3107B71216BE7AE0099A95C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = bootstrap.sh; path = ../bootstrap.sh; sourceTree = "<group>"; };
+		B3107B75216BE7AE0099A95C /* launchpad_pro.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = launchpad_pro.a; sourceTree = "<group>"; };
+		B3107B76216BE7AE0099A95C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B3107B77216BE7AE0099A95C /* Dockerfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Dockerfile; path = ../Dockerfile; sourceTree = "<group>"; };
+		B3107B78216BE7AE0099A95C /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../Makefile; sourceTree = "<group>"; };
+		B3107B79216BE7AE0099A95C /* Vagrantfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Vagrantfile; path = ../Vagrantfile; sourceTree = "<group>"; };
+		B3107B8F216BE8F70099A95C /* libPolyPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPolyPadLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3107B9F216BEA3A0099A95C /* PolypadTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PolypadTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3107BA1216BEA3A0099A95C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B3107BB1216C12C60099A95C /* PolySimulation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PolySimulation; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3107BC0216C16C00099A95C /* simulator-osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "simulator-osx.c"; path = "../../tools/osx/simulator-osx.c"; sourceTree = "<group>"; };
+		B3107BC4216C1C0F0099A95C /* simulator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = simulator.c; path = ../../tools/simulator.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B3107B8D216BE8F70099A95C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3107B9C216BEA3A0099A95C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3107BA9216BEA4B0099A95C /* libPolyPadLib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3107BAE216C12C60099A95C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3107BC3216C1AF80099A95C /* launchpad_pro.a in Frameworks */,
+				B3107BBF216C131E0099A95C /* libPolyPadLib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B3107B59216BE7500099A95C = {
+			isa = PBXGroup;
+			children = (
+				B3107B71216BE7AE0099A95C /* bootstrap.sh */,
+				B3107B72216BE7AE0099A95C /* build */,
+				B3107B77216BE7AE0099A95C /* Dockerfile */,
+				B3107B64216BE7AE0099A95C /* include */,
+				B3107B74216BE7AE0099A95C /* lib */,
+				B3107B76216BE7AE0099A95C /* LICENSE */,
+				B3107B78216BE7AE0099A95C /* Makefile */,
+				B3107B70216BE7AE0099A95C /* README.md */,
+				B3107B6D216BE7AE0099A95C /* resources */,
+				B3107B69216BE7AE0099A95C /* src */,
+				B3107B6F216BE7AE0099A95C /* stm32_flash.ld */,
+				B3107B79216BE7AE0099A95C /* Vagrantfile */,
+				B3107BA0216BEA3A0099A95C /* PolypadTests */,
+				B3107BB2216C12C60099A95C /* PolySimulation */,
+				B3107B90216BE8F70099A95C /* Products */,
+				B3107BA8216BEA4B0099A95C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B3107B64216BE7AE0099A95C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B3107B65216BE7AE0099A95C /* app_defs.h */,
+				B3107B66216BE7AE0099A95C /* arpeggiator.h */,
+				B3107B67216BE7AE0099A95C /* app.h */,
+				B3107B68216BE7AE0099A95C /* sequence.h */,
+			);
+			name = include;
+			path = ../include;
+			sourceTree = "<group>";
+		};
+		B3107B69216BE7AE0099A95C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B3107B6A216BE7AE0099A95C /* sequence.cpp */,
+				B3107B6B216BE7AE0099A95C /* arpeggiator.cpp */,
+				B3107B6C216BE7AE0099A95C /* app.c */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		B3107B6D216BE7AE0099A95C /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B3107B6E216BE7AE0099A95C /* Launchpad Pro-1.0.154.syx */,
+			);
+			name = resources;
+			path = ../resources;
+			sourceTree = "<group>";
+		};
+		B3107B72216BE7AE0099A95C /* build */ = {
+			isa = PBXGroup;
+			children = (
+				B3107B73216BE7AE0099A95C /* src */,
+			);
+			name = build;
+			path = ../build;
+			sourceTree = "<group>";
+		};
+		B3107B73216BE7AE0099A95C /* src */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B3107B74216BE7AE0099A95C /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				B3107B75216BE7AE0099A95C /* launchpad_pro.a */,
+			);
+			name = lib;
+			path = ../lib;
+			sourceTree = "<group>";
+		};
+		B3107B90216BE8F70099A95C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3107B8F216BE8F70099A95C /* libPolyPadLib.a */,
+				B3107B9F216BEA3A0099A95C /* PolypadTests */,
+				B3107BB1216C12C60099A95C /* PolySimulation */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B3107BA0216BEA3A0099A95C /* PolypadTests */ = {
+			isa = PBXGroup;
+			children = (
+				B3107BA1216BEA3A0099A95C /* main.cpp */,
+			);
+			path = PolypadTests;
+			sourceTree = "<group>";
+		};
+		B3107BA8216BEA4B0099A95C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3107BB2216C12C60099A95C /* PolySimulation */ = {
+			isa = PBXGroup;
+			children = (
+				B3107BC4216C1C0F0099A95C /* simulator.c */,
+				B3107BC0216C16C00099A95C /* simulator-osx.c */,
+			);
+			path = PolySimulation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B3107B8B216BE8F70099A95C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3107B94216BE9050099A95C /* app_defs.h in Headers */,
+				B3107B95216BE9050099A95C /* arpeggiator.h in Headers */,
+				B3107B96216BE9050099A95C /* app.h in Headers */,
+				B3107B97216BE9050099A95C /* sequence.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXLegacyTarget section */
+		B3107B5E216BE7510099A95C /* Polypad */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = B3107B61216BE7510099A95C /* Build configuration list for PBXLegacyTarget "Polypad" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/allanpichardo/Documents/Dev/polypad;
+			dependencies = (
+			);
+			name = Polypad;
+			passBuildSettingsInEnvironment = 1;
+			productName = Polypad;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		B3107B8E216BE8F70099A95C /* PolyPadLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3107B91216BE8F70099A95C /* Build configuration list for PBXNativeTarget "PolyPadLib" */;
+			buildPhases = (
+				B3107B8B216BE8F70099A95C /* Headers */,
+				B3107B8C216BE8F70099A95C /* Sources */,
+				B3107B8D216BE8F70099A95C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PolyPadLib;
+			productName = PolyPadLib;
+			productReference = B3107B8F216BE8F70099A95C /* libPolyPadLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B3107B9E216BEA3A0099A95C /* PolypadTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3107BA3216BEA3A0099A95C /* Build configuration list for PBXNativeTarget "PolypadTests" */;
+			buildPhases = (
+				B3107B9B216BEA3A0099A95C /* Sources */,
+				B3107B9C216BEA3A0099A95C /* Frameworks */,
+				B3107B9D216BEA3A0099A95C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3107BA7216BEA400099A95C /* PBXTargetDependency */,
+			);
+			name = PolypadTests;
+			productName = PolypadTests;
+			productReference = B3107B9F216BEA3A0099A95C /* PolypadTests */;
+			productType = "com.apple.product-type.tool";
+		};
+		B3107BB0216C12C60099A95C /* PolySimulation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3107BB5216C12C60099A95C /* Build configuration list for PBXNativeTarget "PolySimulation" */;
+			buildPhases = (
+				B3107BAD216C12C60099A95C /* Sources */,
+				B3107BAE216C12C60099A95C /* Frameworks */,
+				B3107BAF216C12C60099A95C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3107BBE216C13120099A95C /* PBXTargetDependency */,
+			);
+			name = PolySimulation;
+			productName = PolySimulation;
+			productReference = B3107BB1216C12C60099A95C /* PolySimulation */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B3107B5A216BE7510099A95C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = comp345;
+				TargetAttributes = {
+					B3107B5E216BE7510099A95C = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					B3107B8E216BE8F70099A95C = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					B3107B9E216BEA3A0099A95C = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					B3107BB0216C12C60099A95C = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = B3107B5D216BE7510099A95C /* Build configuration list for PBXProject "Polypad" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B3107B59216BE7500099A95C;
+			productRefGroup = B3107B90216BE8F70099A95C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B3107B5E216BE7510099A95C /* Polypad */,
+				B3107B8E216BE8F70099A95C /* PolyPadLib */,
+				B3107B9E216BEA3A0099A95C /* PolypadTests */,
+				B3107BB0216C12C60099A95C /* PolySimulation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B3107B8C216BE8F70099A95C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3107B98216BE91C0099A95C /* sequence.cpp in Sources */,
+				B3107B99216BE91C0099A95C /* arpeggiator.cpp in Sources */,
+				B3107B9A216BE91C0099A95C /* app.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3107B9B216BEA3A0099A95C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3107BA2216BEA3A0099A95C /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3107BAD216C12C60099A95C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3107BC6216C1E7E0099A95C /* simulator-osx.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B3107BA7216BEA400099A95C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3107B8E216BE8F70099A95C /* PolyPadLib */;
+			targetProxy = B3107BA6216BEA400099A95C /* PBXContainerItemProxy */;
+		};
+		B3107BBE216C13120099A95C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3107B8E216BE8F70099A95C /* PolyPadLib */;
+			targetProxy = B3107BBD216C13120099A95C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B3107B5F216BE7510099A95C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		B3107B60216BE7510099A95C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+			};
+			name = Release;
+		};
+		B3107B62216BE7510099A95C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B3107B63216BE7510099A95C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B3107B92216BE8F70099A95C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B3107B93216BE8F70099A95C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		B3107BA4216BEA3A0099A95C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B3107BA5216BEA3A0099A95C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B3107BB6216C12C60099A95C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				LIBRARY_SEARCH_PATHS = /Users/allanpichardo/Documents/Dev/polypad/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B3107BB7216C12C60099A95C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RDVU6E2FP5;
+				LIBRARY_SEARCH_PATHS = /Users/allanpichardo/Documents/Dev/polypad/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B3107B5D216BE7510099A95C /* Build configuration list for PBXProject "Polypad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3107B5F216BE7510099A95C /* Debug */,
+				B3107B60216BE7510099A95C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3107B61216BE7510099A95C /* Build configuration list for PBXLegacyTarget "Polypad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3107B62216BE7510099A95C /* Debug */,
+				B3107B63216BE7510099A95C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3107B91216BE8F70099A95C /* Build configuration list for PBXNativeTarget "PolyPadLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3107B92216BE8F70099A95C /* Debug */,
+				B3107B93216BE8F70099A95C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3107BA3216BEA3A0099A95C /* Build configuration list for PBXNativeTarget "PolypadTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3107BA4216BEA3A0099A95C /* Debug */,
+				B3107BA5216BEA3A0099A95C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3107BB5216C12C60099A95C /* Build configuration list for PBXNativeTarget "PolySimulation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3107BB6216C12C60099A95C /* Debug */,
+				B3107BB7216C12C60099A95C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B3107B5A216BE7510099A95C /* Project object */;
+}
