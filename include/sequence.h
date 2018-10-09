@@ -11,17 +11,13 @@
 
 #include "app_defs.h"
 
-class Sequence {
-private:
-    u8 length = 8;
-    bool sequence[16] = {1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0};
-
-    void shift(u8 const &fromIndex, u8 const &toIndex);
-public:
-    bool* getSequence() { return sequence; };
-    u8 getLength() { return length; };
-    void generate(u8 const &onsets, u8 const &length);
-    void rotate(u8 const &steps);
+struct Sequence {
+    u8 length;
+    u8 sequence[16];
 };
+
+void sequence_shift(struct Sequence* sequence, u8 const fromIndex, u8 const toIndex);
+void sequence_generate(struct Sequence* sequence, u8 const onsets, u8 const length);
+void sequence_rotate(struct Sequence* sequence, u8 const steps);
 
 #endif /* sequence_h */
