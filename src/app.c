@@ -36,7 +36,7 @@
 //______________________________________________________________________________
 
 #include "app.h"
-//#include "arpeggiator.h"
+#include "arpeggiator.h"
 
 //______________________________________________________________________________
 //
@@ -63,17 +63,22 @@ void app_surface_event(u8 type, u8 index, u8 value)
     {
         case  TYPEPAD:
         {
-            // toggle it and store it off, so we can save to flash if we want to
-            if (value)
-            {
-                g_Buttons[index] = MAXLED * !g_Buttons[index];
+            if(value) {
+                polypad_pad_down(index);
+            } else {
+                polypad_pad_up(index);
             }
-            
-            // example - light / extinguish pad LEDs
-            hal_plot_led(TYPEPAD, index, 0, 0, g_Buttons[index]);
-            
-            // example - send MIDI
-            hal_send_midi(DINMIDI, NOTEON | 0, index, value);
+            // toggle it and store it off, so we can save to flash if we want to
+//            if (value)
+//            {
+//                g_Buttons[index] = MAXLED * !g_Buttons[index];
+//            }
+//
+//            // example - light / extinguish pad LEDs
+//            hal_plot_led(TYPEPAD, index, 0, 0, g_Buttons[index]);
+//
+//            // example - send MIDI
+//            hal_send_midi(DINMIDI, NOTEON | 0, index, value);
             
         }
         break;
@@ -193,18 +198,9 @@ void app_timer_event()
 void app_init(const u16 *adc_raw)
 {
     // example - load button states from flash
-    hal_read_flash(0, g_Buttons, BUTTON_COUNT);
+    //hal_read_flash(0, g_Buttons, BUTTON_COUNT);
     
-    // example - light the LEDs to say hello!
-    for (int i=0; i < 10; ++i)
-    {
-        for (int j=0; j < 10; ++j)
-        {
-            u8 b = g_Buttons[j*10 + i];
-            
-            hal_plot_led(TYPEPAD, j*10 + i, 0, 0, b);
-        }
-    }
+    polypad_draw_chromatic_grid();
 	
 	// store off the raw ADC frame pointer for later use
 	g_ADC = adc_raw;

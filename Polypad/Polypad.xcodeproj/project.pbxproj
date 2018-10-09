@@ -19,6 +19,8 @@
 		B3107BBF216C131E0099A95C /* libPolyPadLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3107B8F216BE8F70099A95C /* libPolyPadLib.a */; };
 		B3107BC3216C1AF80099A95C /* launchpad_pro.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3107B75216BE7AE0099A95C /* launchpad_pro.a */; };
 		B3107BC9216C26490099A95C /* simulator-osx.c in Sources */ = {isa = PBXBuildFile; fileRef = B3107BC0216C16C00099A95C /* simulator-osx.c */; };
+		B3107BCB216C3A2A0099A95C /* polypad.h in Headers */ = {isa = PBXBuildFile; fileRef = B3107BCA216C3A2A0099A95C /* polypad.h */; };
+		B3107BCD216C3A630099A95C /* polypad.c in Sources */ = {isa = PBXBuildFile; fileRef = B3107BCC216C3A630099A95C /* polypad.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		B3107BB1216C12C60099A95C /* PolySimulation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PolySimulation; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3107BC0216C16C00099A95C /* simulator-osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "simulator-osx.c"; path = "../../tools/osx/simulator-osx.c"; sourceTree = "<group>"; };
 		B3107BC4216C1C0F0099A95C /* simulator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = simulator.c; path = ../../tools/simulator.c; sourceTree = "<group>"; };
+		B3107BCA216C3A2A0099A95C /* polypad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = polypad.h; sourceTree = "<group>"; };
+		B3107BCC216C3A630099A95C /* polypad.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = polypad.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 				B3107B66216BE7AE0099A95C /* arpeggiator.h */,
 				B3107B67216BE7AE0099A95C /* app.h */,
 				B3107B68216BE7AE0099A95C /* sequence.h */,
+				B3107BCA216C3A2A0099A95C /* polypad.h */,
 			);
 			name = include;
 			path = ../include;
@@ -152,6 +157,7 @@
 				B3107B6A216BE7AE0099A95C /* sequence.c */,
 				B3107B6B216BE7AE0099A95C /* arpeggiator.c */,
 				B3107B6C216BE7AE0099A95C /* app.c */,
+				B3107BCC216C3A630099A95C /* polypad.c */,
 			);
 			name = src;
 			path = ../src;
@@ -236,6 +242,7 @@
 				B3107B95216BE9050099A95C /* arpeggiator.h in Headers */,
 				B3107B96216BE9050099A95C /* app.h in Headers */,
 				B3107B97216BE9050099A95C /* sequence.h in Headers */,
+				B3107BCB216C3A2A0099A95C /* polypad.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +370,7 @@
 				B3107B98216BE91C0099A95C /* sequence.c in Sources */,
 				B3107B99216BE91C0099A95C /* arpeggiator.c in Sources */,
 				B3107B9A216BE91C0099A95C /* app.c in Sources */,
+				B3107BCD216C3A630099A95C /* polypad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

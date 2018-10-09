@@ -7,7 +7,6 @@
 //
 
 #include "arpeggiator.h"
-#include "sequence.h"
 #include "app_defs.h"
 
 #include <stdio.h>
