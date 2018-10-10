@@ -78,7 +78,7 @@ void app_surface_event(u8 type, u8 index, u8 value)
                     polypad_rightarrow_down(&g_Ticks_ms);
                 } else if(index == 70) {
                     polypad_click_down(polypad_ms_to_bpm(g_Ticks_ms));
-                } else {
+                } else if(index > 10 && index < 89 && (index % 10) < 9 && (index % 10) > 0){
                     polypad_pad_down(index, &g_Note_Start);
                 }
             } else {
@@ -183,6 +183,8 @@ void app_timer_event()
             hal_plot_led(TYPEPAD, 70, 0, 0, 0);
         }
         
+        polypad_on_beat(&g_Note_Start);
+        
     }
     
 /*
@@ -224,7 +226,7 @@ void app_init(const u16 *adc_raw)
     // example - load button states from flash
     //hal_read_flash(0, g_Buttons, BUTTON_COUNT);
     
-    polypad_draw_chromatic_grid();
+    polypad_initialize_grid();
 	
 	// store off the raw ADC frame pointer for later use
 	g_ADC = adc_raw;

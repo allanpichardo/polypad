@@ -11,6 +11,7 @@ void arpeggiator_init(struct Arpeggiator* arpeggiator) {
     memcpy(arpeggiator->arpeggio, arpeggio, sizeof(arpeggio));
     
     arpeggiator->length = 8;
+    arpeggiator->index = 0;
     arpeggiator->sequence.length = 8;
     
     u8 sequence[16] = {1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0};

@@ -9,11 +9,19 @@ enum Scale {
     majorScale, minorScale
 };
 
+struct ArpeggiatorState {
+    u8 baseNote;
+    u8 isPlaying;
+    u8 step;
+};
+
 struct Arpeggiator {
+    u8 index;
     u8 scale[16];
     u8 arpeggio[16];
     u8 length;
     struct Sequence sequence;
+    struct ArpeggiatorState state;
 };
 
 void arpeggiator_init(struct Arpeggiator* arpeggiator);
