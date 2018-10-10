@@ -8,18 +8,35 @@
 
 #include "arpeggiator.h"
 #include "app_defs.h"
+#include "dotmatrix.h"
 
 #include <stdio.h>
 
 int main(int argc, const char * argv[]) {
     
-    struct Arpeggiator arpeggiator;
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 3; j++) {
+            printf("%d",number_matrix[3][j][i]);
+        }
+        printf("\n");
+    }
     
-    arpeggiator_init(&arpeggiator);
-    
-    printf("%d",sizeof(arpeggiator));
     printf("\n");
     
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 3; j++) {
+            printf("%d",matrix_one[j][i]);
+        }
+        printf("\n");
+    }
+    
+    printf("\n");
+    
+    int tempo = 120;
+    
+    int ones = tempo % 10;
+    int tens = (tempo / 10) % 10;
+    int hundreds = (tempo / 100) % 10;
     
     
     return 0;

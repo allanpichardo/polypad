@@ -6,12 +6,20 @@
 //  Copyright © 2018 comp345. All rights reserved.
 //
 #include "polypad.h"
+#include "dotmatrix.h"
 #include "app_defs.h"
 #include "app.h"
 #include <stdio.h>
 
-u8 g_Octave = 4;
+/**
+ Globals
+ */
 u8 g_GridColors[100] = {0};
+
+/**
+ Flags
+ */
+u8 flag_editingTempo = 0;
 
 u8 polypad_xy_to_index(u8 x, u8 y) {
     return ((y+1) * 10) + (x+1);
@@ -54,12 +62,117 @@ void polypad_pad_light_off(u8 index) {
     }
 }
 
-void polypad_pad_down(u8 index) {
-    polypad_pad_light_on(index);
+void polypad_leftarrow_down(u16* ticks) {
+    u8 bpm = polypad_ms_to_bpm(*ticks);
+    bpm--;
+    
+    if(flag_editingTempo) {
+        polypad_draw_tempo_select(bpm);
+    }
+    
+    *ticks = polypad_bpm_to_ms(bpm);
+}
+
+void polypad_rightarrow_down(u16* ticks) {
+    u8 bpm = polypad_ms_to_bpm(*ticks);
+    bpm++;
+    
+    if(flag_editingTempo) {
+        polypad_draw_tempo_select(bpm);
+    }
+    
+    *ticks = polypad_bpm_to_ms(bpm);
+}
+
+void polypad_pad_down(u8 index, u8* startingNote) {
+    if(index > 10 && index < 89 && (index % 10) < 9 && (index % 10) > 0) {
+        polypad_pad_light_on(index);
+        
+        u8 x = polypad_index_to_x(index);
+        u8 y = polypad_index_to_y(index);
+        printf("%d\n", polypad_xy_to_midi_note(*startingNote, x, y));
+    }
+}
+
+void polypad_click_down(u8 bpm) {
+    flag_editingTempo = 1;
+    polypad_draw_tempo_select(bpm);
 }
 
 void polypad_pad_up(u8 index) {
     polypad_pad_light_off(index);
+}
+
+void polypad_click_up() {
+    flag_editingTempo = 0;
+    polypad_restore_grid_from_store();
+}
+
+void polypad_uparrow_down(u8* startingNote) {
+    *startingNote = *startingNote + 12;
+}
+
+void polypad_downarrow_down(u8* startingNote) {
+    *startingNote = *startingNote - 12;
+}
+
+void polypad_restore_grid_from_store() {
+    for(u8 i = 0; i < 100; i++) {
+        if(g_GridColors[i] == 100) {
+            hal_plot_led(TYPEPAD, i, MAXLED, 0, 0);
+        } else if(g_GridColors[i] == 010) {
+            hal_plot_led(TYPEPAD, i, 0, MAXLED, 0);
+        } else {
+            hal_plot_led(TYPEPAD, i, 0, 0, 0);
+        }
+    }
+}
+
+void polypad_draw_tempo_select(u8 tempo) {
+    
+    polypad_clear_grid();
+    
+    u8 ones = tempo % 10;
+    for(u8 i = 0; i < 3; i++) {
+        for(u8 j = 0; j < 4; j++) {
+            if(number_matrix[ones][i][j]) {
+                u8 index = polypad_xy_to_index(i + 5, j + 4);
+                hal_plot_led(TYPEPAD, index, 0, MAXLED, MAXLED);
+            }
+        }
+    }
+    
+    if(tempo > 9) {
+        u8 tens = (tempo / 10) % 10;
+        for(u8 i = 0; i < 3; i++) {
+            for(u8 j = 0; j < 4; j++) {
+                if(number_matrix[tens][i][j]) {
+                    u8 index = polypad_xy_to_index(i + 2, j + 4);
+                    hal_plot_led(TYPEPAD, index, 0, MAXLED, MAXLED);
+                }
+            }
+        }
+    }
+    
+    if(tempo > 99) {
+        u8 hundreds = (tempo / 100) % 10;
+        for(u8 i = 0; i < 3; i++) {
+            for(u8 j = 0; j < 4; j++) {
+                if(number_matrix[hundreds][i][j]) {
+                    u8 index = polypad_xy_to_index(i - 1, j + 4);
+                    hal_plot_led(TYPEPAD, index, 0, MAXLED, MAXLED);
+                }
+            }
+        }
+    }
+}
+
+void polypad_clear_grid() {
+    for(u8 i = 0; i < 8; i++) {
+        for(u8 j = 0; j < 8; j++) {
+            hal_plot_led(TYPEPAD, polypad_xy_to_index(i, j), 0, 0, 0);
+        }
+    }
 }
 
 void polypad_draw_chromatic_grid() {
@@ -83,4 +196,16 @@ void polypad_draw_chromatic_grid() {
             }
         }
     }
+}
+
+u16 polypad_bpm_to_ms(u8 bpm) {
+    return 60000 / bpm;
+}
+
+u8 polypad_ms_to_bpm(u16 ms) {
+    return 60000 / ms;
+}
+
+u8 polypad_xy_to_midi_note(u8 startingNote, u8 x, u8 y) {
+    return startingNote + x + (5 * y);
 }

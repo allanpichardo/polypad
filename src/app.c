@@ -36,6 +36,7 @@
 //______________________________________________________________________________
 
 #include "app.h"
+#include "polypad.h"
 #include "arpeggiator.h"
 
 //______________________________________________________________________________
@@ -49,10 +50,13 @@
 
 // store ADC frame pointer
 static const u16 *g_ADC = 0;
+static u16 g_Ticks_ms = 600;
+static u16 ms = 600;
+static u8 g_Tempo_Blink = 0;
+static u8 g_Note_Start = 60;
 
 // buffer to store pad states for flash save
 #define BUTTON_COUNT 100
-
 u8 g_Buttons[BUTTON_COUNT] = {0};
 
 //______________________________________________________________________________
@@ -64,8 +68,23 @@ void app_surface_event(u8 type, u8 index, u8 value)
         case  TYPEPAD:
         {
             if(value) {
-                polypad_pad_down(index);
+                if(index == 91) {
+                    polypad_uparrow_down(&g_Note_Start);
+                }else if(index == 92) {
+                    polypad_downarrow_down(&g_Note_Start);
+                }else if(index == 93) {
+                    polypad_leftarrow_down(&g_Ticks_ms);
+                } else if(index == 94) {
+                    polypad_rightarrow_down(&g_Ticks_ms);
+                } else if(index == 70) {
+                    polypad_click_down(polypad_ms_to_bpm(g_Ticks_ms));
+                } else {
+                    polypad_pad_down(index, &g_Note_Start);
+                }
             } else {
+                if(index == 70) {
+                    polypad_click_up();
+                }
                 polypad_pad_up(index);
             }
             // toggle it and store it off, so we can save to flash if we want to
@@ -88,7 +107,7 @@ void app_surface_event(u8 type, u8 index, u8 value)
             if (value)
             {
                 // save button states to flash (reload them by power cycling the hardware!)
-                hal_write_flash(0, g_Buttons, BUTTON_COUNT);
+//                hal_write_flash(0, g_Buttons, BUTTON_COUNT);
             }
         }
         break;
@@ -148,17 +167,22 @@ void app_cable_event(u8 type, u8 value)
 
 void app_timer_event()
 {
-    // example - send MIDI clock at 125bpm
-#define TICK_MS 20
     
-    static u8 ms = TICK_MS;
-    
-    if (++ms >= TICK_MS)
+    if (++ms >= g_Ticks_ms)
     {
         ms = 0;
         
         // send a clock pulse up the USB
         hal_send_midi(USBSTANDALONE, MIDITIMINGCLOCK, 0, 0);
+        
+        //blink click button
+        g_Tempo_Blink = !g_Tempo_Blink;
+        if(g_Tempo_Blink) {
+            hal_plot_led(TYPEPAD, 70, MAXLED, MAXLED, MAXLED);
+        } else {
+            hal_plot_led(TYPEPAD, 70, 0, 0, 0);
+        }
+        
     }
     
 /*
