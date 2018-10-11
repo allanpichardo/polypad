@@ -23,6 +23,7 @@ void polypad_clear_grid(void);
 void polypad_initialize_grid(void);
 void polypad_restore_grid_from_store(void);
 void polypad_draw_tempo_select(u8 tempo);
+void polypad_draw_quantize_menu(u8 trackId);
 
 void polypad_pad_down(u8 index, u8* startingNote);
 void polypad_click_down(u8 bpm);
@@ -33,6 +34,10 @@ void polypad_leftarrow_down(u16* ticks);
 void polypad_rightarrow_down(u16* ticks);
 void polypad_uparrow_down(u8* startingNote);
 void polypad_downarrow_down(u8* startingNote);
+void polypad_track_play_down(u8 index);
+void polypad_track_play_up(u8 index);
+void polypad_quantize_down(void);
+void polypad_quantize_up(void);
 
 u8 polypad_xy_to_index(u8 x, u8 y);
 u8 polypad_index_to_y(u8 index);

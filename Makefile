@@ -2,7 +2,7 @@ BUILDDIR = build
 
 TOOLS = tools
 
-SOURCES += src/app.c
+SOURCES += src/app.c src/sequence. src/arpeggiator.c src/polypad.c
 
 INCLUDES += -Iinclude -I
 

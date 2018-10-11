@@ -36,6 +36,7 @@ void sequence_rotate(struct Sequence* sequence, u8 const steps) {
 void sequence_generate(struct Sequence* sequence, u8 const beats, u8 const steps) {
     u8 bucket = 0;
     sequence->length = steps;
+    sequence->onsets = beats;
 
     for(u8 i = 0; i < sequence->length; i++) {
         bucket += beats;

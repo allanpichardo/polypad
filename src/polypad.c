@@ -18,12 +18,13 @@
 u8 g_GridColors[100] = {0};
 u8 g_Midi_Channel = 1;
 u8 g_ActiveNotes[8][2] = {0};
-struct Arpeggiator g_arpeggiators[8];
+static struct Arpeggiator g_arpeggiators[8];
 
 /**
  Flags
  */
 u8 flag_editingTempo = 0;
+u8 flag_editingQuantize = 0;
 
 u8 polypad_xy_to_index(u8 x, u8 y) {
     return ((y+1) * 10) + (x+1);
@@ -59,6 +60,8 @@ void polypad_pad_light_restore(u8 index) {
         hal_plot_led(TYPEPAD, index, 0, g_GridColors[index], 0);
     } else if(index == 93 || index == 94) {
         hal_plot_led(TYPEPAD, index, 0, g_GridColors[index], g_GridColors[index]);
+    } else if(index % 10 == 9) {
+        hal_plot_led(TYPEPAD, index, g_GridColors[index], 0, g_GridColors[index]);
     }
     
     u8 x = polypad_index_to_x(index);
@@ -97,19 +100,52 @@ void polypad_rightarrow_down(u16* ticks) {
 }
 
 void polypad_pad_down(u8 index, u8* startingNote) {
-    polypad_pad_light_on(index);
     
-    u8 x = polypad_index_to_x(index);
-    u8 y = polypad_index_to_y(index);
-    u8 note = polypad_xy_to_midi_note(*startingNote, x, y);
-    
-    for(u8 i = 0; i < 8; i++) {
-        if(!g_arpeggiators[i].state.isPlaying) {
-            g_arpeggiators[i].state.isPlaying = 1;
-            g_arpeggiators[i].index = index;
-            g_arpeggiators[i].state.baseNote = note;
-            return;
+    if(flag_editingQuantize) {
+        
+    } else {
+        polypad_pad_light_on(index);
+        
+        u8 x = polypad_index_to_x(index);
+        u8 y = polypad_index_to_y(index);
+        u8 note = polypad_xy_to_midi_note(*startingNote, x, y);
+        
+        for(u8 i = 0; i < 8; i++) {
+            if(!g_arpeggiators[i].state.isPlaying) {
+                g_arpeggiators[i].state.isPlaying = 1;
+                g_arpeggiators[i].index = index;
+                g_arpeggiators[i].state.baseNote = note;
+                
+                polypad_make_note(startingNote, &g_arpeggiators[i], i);
+                
+                return;
+            }
         }
+    }
+}
+
+void polypad_track_play_down(u8 index) {
+    u8 trackIndex = 8 - ((index / 10) % 10);
+    
+    if(flag_editingQuantize) {
+        polypad_draw_quantize_menu(trackIndex);
+    } else {
+        if(g_arpeggiators[trackIndex].state.isLatched) {
+            g_arpeggiators[trackIndex].state.isLatched = 0;
+            g_arpeggiators[trackIndex].state.isPlaying = 0;
+            polypad_pad_light_restore(index);
+        } else {
+            if(g_arpeggiators[trackIndex].state.isPlaying) {
+                g_arpeggiators[trackIndex].state.isLatched = 1;
+                hal_plot_led(TYPEPAD, index, MAXLED, 0, MAXLED);
+            }
+        }
+    }
+}
+
+void polypad_track_play_up(u8 index) {
+    if(flag_editingQuantize) {
+        
     }
 }
 
@@ -118,17 +154,33 @@ void polypad_click_down(u8 bpm) {
     polypad_draw_tempo_select(bpm);
 }
 
+void polypad_quantize_down(void) {
+    flag_editingQuantize = 1;
+    polypad_draw_quantize_menu(0);
+}
+
+void polypad_quantize_up(void){
+    flag_editingQuantize = 0;
+    polypad_restore_grid_from_store();
+}
+
 void polypad_pad_up(u8 index) {
-    polypad_pad_light_restore(index);
     
-    for(u8 i = 0; i < 8; i++) {
-        if(g_arpeggiators[i].index == index && g_arpeggiators[i].state.isPlaying) {
-            g_arpeggiators[i].state.isPlaying = 0;
-            g_arpeggiators[i].index = 0;
-            g_arpeggiators[i].state.baseNote = 0;
-            return;
+    if(flag_editingQuantize) {
+        
+    } else {
+        polypad_pad_light_restore(index);
+        
+        for(u8 i = 0; i < 8; i++) {
+            if(g_arpeggiators[i].index == index && g_arpeggiators[i].state.isPlaying && !g_arpeggiators[i].state.isLatched) {
+                g_arpeggiators[i].state.isPlaying = 0;
+                g_arpeggiators[i].index = 0;
+                g_arpeggiators[i].state.baseNote = 0;
+                return;
+            }
         }
     }
+    
 }
 
 void polypad_click_up() {
@@ -150,6 +202,20 @@ void polypad_restore_grid_from_store() {
     for(u8 i = 0; i < 100; i++) {
         polypad_pad_light_restore(i);
     }
+}
+
+void polypad_draw_quantize_menu(u8 trackId) {
+    
+    u8 playButtonIndex = ((8 - trackId) * 10) + 9;
+    
+    hal_plot_led(TYPEPAD, playButtonIndex, 0, 0, MAXLED);
+    for(u8 i = 19; i < 99; i += 10) {
+        if(i != playButtonIndex)
+            polypad_pad_light_restore(i);
+    }
+    polypad_clear_grid();
+    
+    
 }
 
 void polypad_draw_tempo_select(u8 tempo) {
@@ -209,6 +275,7 @@ void polypad_color_octave_arrows(u8* startingNote) {
 
 void polypad_initialize_grid() {
     
+    //note grid
     u8 chromatic_scale[12] = {2,0,1,0,1,1,0,1,0,1,0,1};
     
     for(u8 i = 0; i < 8; i++) {
@@ -231,13 +298,25 @@ void polypad_initialize_grid() {
         arpeggiator_init(&g_arpeggiators[i]);
     }
     
+    //octave arrows
     u8 startingNote = 60;
     polypad_color_octave_arrows(&startingNote);
     
+    //tempo arrows
     hal_plot_led(TYPEPAD, 93, 0, 30, 30);
     hal_plot_led(TYPEPAD, 94, 0, 30, 30);
     g_GridColors[93] = 30;
     g_GridColors[94] = 30;
+    
+    //track buttons
+    for(u8 i = 19; i < 99; i += 10) {
+        hal_plot_led(TYPEPAD, i, 1, 0, 1);
+        g_GridColors[i] = 1;
+    }
+    
+    //quantize button
+    hal_plot_led(TYPEPAD, 40, 1, 0, 1);
+    g_GridColors[40] = 1;
 }
 
 u16 polypad_bpm_to_ms(u8 bpm) {
@@ -273,12 +352,15 @@ void polypad_make_note(u8* startingNote, struct Arpeggiator* arpeggiator, u8 arp
         u8 newIndex = polypad_semitoneoffset_to_index(arpeggiator->index, arpeggiator->state.baseNote, arpeggiator->arpeggio[stepIndex]);
         polypad_note_on(arpeggiator->arpeggio[stepIndex] + arpeggiator->state.baseNote, arpIndex, newIndex);
     }
+    
+    arpeggiator->state.step = stepIndex + 1;
 }
 
 void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex) {
     hal_send_midi(DINMIDI, NOTEON | g_Midi_Channel, note, 127);
     
-    polypad_pad_light_on(padIndex);
+    if(padIndex % 10 != 9)
+        polypad_pad_light_on(padIndex);
     
     g_ActiveNotes[arpIndex][0] = note;
     g_ActiveNotes[arpIndex][1] = padIndex;
@@ -293,12 +375,11 @@ void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex) {
 
 void polypad_on_beat(u8* startingNote) {
     for(u8 i = 0; i < 8; i++) {
-        if(g_ActiveNotes[i]) {
+        if(g_ActiveNotes[i][0]) {
             polypad_note_off(g_ActiveNotes[i][0], i, g_ActiveNotes[i][1]);
         }
-        if(g_arpeggiators[i].state.isPlaying) {
+        if(g_arpeggiators[i].state.isPlaying || g_arpeggiators[i].state.isLatched) {
             polypad_make_note(startingNote, &g_arpeggiators[i], i);
-            g_arpeggiators[i].state.step = g_arpeggiators[i].state.step % g_arpeggiators[i].length + 1;
         }
     }
 }

@@ -13,6 +13,7 @@ struct ArpeggiatorState {
     u8 baseNote;
     u8 isPlaying;
     u8 step;
+    u8 isLatched;
 };
 
 struct Arpeggiator {

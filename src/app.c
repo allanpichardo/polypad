@@ -50,8 +50,8 @@
 
 // store ADC frame pointer
 static const u16 *g_ADC = 0;
-static u16 g_Ticks_ms = 600;
-static u16 ms = 600;
+static u16 g_Ticks_ms = 300;
+static u16 ms = 300;
 static u8 g_Tempo_Blink = 0;
 static u8 g_Note_Start = 60;
 
@@ -68,7 +68,11 @@ void app_surface_event(u8 type, u8 index, u8 value)
         case  TYPEPAD:
         {
             if(value) {
-                if(index == 91) {
+                if(index == 40) {
+                    polypad_quantize_down();
+                }else if(index % 10 == 9) {
+                    polypad_track_play_down(index);
+                }else if(index == 91) {
                     polypad_uparrow_down(&g_Note_Start);
                 }else if(index == 92) {
                     polypad_downarrow_down(&g_Note_Start);
@@ -82,10 +86,15 @@ void app_surface_event(u8 type, u8 index, u8 value)
                     polypad_pad_down(index, &g_Note_Start);
                 }
             } else {
-                if(index == 70) {
+                if(index == 40) {
+                    polypad_quantize_up();
+                }else if(index % 10 == 9) {
+                    polypad_track_play_up(index);
+                }else if(index == 70) {
                     polypad_click_up();
+                } else {
+                    polypad_pad_up(index);
                 }
-                polypad_pad_up(index);
             }
             // toggle it and store it off, so we can save to flash if we want to
 //            if (value)

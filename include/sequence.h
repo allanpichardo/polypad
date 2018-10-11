@@ -12,6 +12,7 @@
 #include "app_defs.h"
 
 struct Sequence {
+    u8 onsets;
     u8 length;
     u8 sequence[16];
 };
