@@ -11,13 +11,12 @@
 #include "sequence.h"
 #include "app_defs.h"
 #include "app.h"
-#include <stdio.h>
 
 /**
  Globals
  */
 u8 g_GridColors[100] = {0};
-u8 g_Midi_Channel = 1;
+u8 g_Midi_Channel = 0;
 u8 g_Quantize_Track = 0;
 u8 g_ActiveNotes[8][2] = {0};
 static struct Arpeggiator g_arpeggiators[8];
@@ -228,8 +227,13 @@ void polypad_downarrow_down(u8* startingNote) {
 
 void polypad_stop_clip_down() {
     for(u8 i = 0; i < 8; i++) {
-        g_arpeggiators[i].state.isLatched = 0;
-        g_arpeggiators[i].state.isPlaying = 0;
+        if(g_arpeggiators[i].state.isLatched) {
+            g_arpeggiators[i].state.isLatched = 0;
+            g_arpeggiators[i].state.isPlaying = 0;
+        }
+        u8 idx = ((i+1) * 10) + 9;
+        g_GridColors[idx] = 1;
+        polypad_pad_light_restore(idx);
     }
 }
 
@@ -374,12 +378,12 @@ void polypad_initialize_grid() {
     }
     
     //quantize button
-    hal_plot_led(TYPEPAD, 40, 1, 0, 1);
-    g_GridColors[40] = 1;
+    hal_plot_led(TYPEPAD, 40, MAXLED, 0, MAXLED);
+    g_GridColors[40] = MAXLED;
     
     //stop clips button
-    hal_plot_led(TYPEPAD, 8, 1, 0, 0);
-    g_GridColors[8] = 1;
+    hal_plot_led(TYPEPAD, 8, MAXLED, 0, 0);
+    g_GridColors[8] = MAXLED;
 }
 
 u16 polypad_bpm_to_ms(u8 bpm) {
