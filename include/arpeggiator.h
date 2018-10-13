@@ -27,7 +27,7 @@ struct Arpeggiator {
 
 void arpeggiator_init(struct Arpeggiator* arpeggiator);
 void _apreggiator_computeArp(struct Arpeggiator* arpeggiator);
-void apreggiator_setPatern(struct Arpeggiator* arpeggiator, u8 const onsets, u8 const length);
+void arpeggiator_setPatern(struct Arpeggiator* arpeggiator, u8 const onsets, u8 const length);
 void apreggiator_shift(struct Arpeggiator* arpeggiator, u8 const steps);
 void apreggiator_setScale(struct Arpeggiator* arpeggiator, enum Scale scale);
 

@@ -8,6 +8,7 @@
 #include "polypad.h"
 #include "dotmatrix.h"
 #include "arpeggiator.h"
+#include "sequence.h"
 #include "app_defs.h"
 #include "app.h"
 #include <stdio.h>
@@ -17,6 +18,7 @@
  */
 u8 g_GridColors[100] = {0};
 u8 g_Midi_Channel = 1;
+u8 g_Quantize_Track = 0;
 u8 g_ActiveNotes[8][2] = {0};
 static struct Arpeggiator g_arpeggiators[8];
 
@@ -62,6 +64,8 @@ void polypad_pad_light_restore(u8 index) {
         hal_plot_led(TYPEPAD, index, 0, g_GridColors[index], g_GridColors[index]);
     } else if(index % 10 == 9) {
         hal_plot_led(TYPEPAD, index, g_GridColors[index], 0, g_GridColors[index]);
+    } else if(index == 8) {
+        hal_plot_led(TYPEPAD, index, g_GridColors[index], 0, 0);
     }
     
     u8 x = polypad_index_to_x(index);
@@ -102,7 +106,29 @@ void polypad_rightarrow_down(u16* ticks) {
 void polypad_pad_down(u8 index, u8* startingNote) {
     
     if(flag_editingQuantize) {
+        u8 row = ((index / 10) % 10);
+        u8 ones = index % 10;
         
+        switch(row) {
+            case 8: {
+                arpeggiator_setPatern(&g_arpeggiators[g_Quantize_Track], ones, g_arpeggiators[g_Quantize_Track].sequence.length);
+                break;
+            }
+            case 7: {
+                arpeggiator_setPatern(&g_arpeggiators[g_Quantize_Track], ones + 8, g_arpeggiators[g_Quantize_Track].sequence.length);
+                break;
+            }
+            case 6: {
+                arpeggiator_setPatern(&g_arpeggiators[g_Quantize_Track], g_arpeggiators[g_Quantize_Track].sequence.onsets, ones);
+                break;
+            }
+            case 5: {
+                arpeggiator_setPatern(&g_arpeggiators[g_Quantize_Track], g_arpeggiators[g_Quantize_Track].sequence.onsets, ones + 8);
+                break;
+            }
+        }
+        
+        polypad_draw_quantize_menu(g_Quantize_Track);
     } else {
         polypad_pad_light_on(index);
         
@@ -133,11 +159,13 @@ void polypad_track_play_down(u8 index) {
         if(g_arpeggiators[trackIndex].state.isLatched) {
             g_arpeggiators[trackIndex].state.isLatched = 0;
             g_arpeggiators[trackIndex].state.isPlaying = 0;
+            g_GridColors[index] = 1;
             polypad_pad_light_restore(index);
         } else {
             if(g_arpeggiators[trackIndex].state.isPlaying) {
                 g_arpeggiators[trackIndex].state.isLatched = 1;
                 hal_plot_led(TYPEPAD, index, MAXLED, 0, MAXLED);
+                g_GridColors[index] = MAXLED;
             }
         }
     }
@@ -198,6 +226,13 @@ void polypad_downarrow_down(u8* startingNote) {
     polypad_color_octave_arrows(startingNote);
 }
 
+void polypad_stop_clip_down() {
+    for(u8 i = 0; i < 8; i++) {
+        g_arpeggiators[i].state.isLatched = 0;
+        g_arpeggiators[i].state.isPlaying = 0;
+    }
+}
+
 void polypad_restore_grid_from_store() {
     for(u8 i = 0; i < 100; i++) {
         polypad_pad_light_restore(i);
@@ -205,17 +240,41 @@ void polypad_restore_grid_from_store() {
 }
 
 void polypad_draw_quantize_menu(u8 trackId) {
-    
+    g_Quantize_Track = trackId;
     u8 playButtonIndex = ((8 - trackId) * 10) + 9;
     
     hal_plot_led(TYPEPAD, playButtonIndex, 0, 0, MAXLED);
     for(u8 i = 19; i < 99; i += 10) {
         if(i != playButtonIndex)
-            polypad_pad_light_restore(i);
+            hal_plot_led(TYPEPAD, i, 1, 0, 1);
     }
     polypad_clear_grid();
     
+    char onsetOn = g_arpeggiators[trackId].sequence.onsets;
+    for(u8 i = 8; i > 6; i--) {
+        for(u8 j = 1; j < 9; j++) {
+            u8 idx = (i * 10) + j;
+            if(onsetOn > 0) {
+                hal_plot_led(TYPEPAD, idx, MAXLED, MAXLED, 0);
+            } else {
+                hal_plot_led(TYPEPAD, idx, 0, 0, 0);
+            }
+            onsetOn--;
+        }
+    }
     
+    char lengthOn = g_arpeggiators[trackId].sequence.length;
+    for(u8 i = 6; i > 4; i--) {
+        for(u8 j = 1; j < 9; j++) {
+            u8 idx = (i * 10) + j;
+            if(lengthOn > 0) {
+                hal_plot_led(TYPEPAD, idx, MAXLED, 0, MAXLED);
+            } else {
+                hal_plot_led(TYPEPAD, idx, 0, 0, 0);
+            }
+            lengthOn--;
+        }
+    }
 }
 
 void polypad_draw_tempo_select(u8 tempo) {
@@ -317,6 +376,10 @@ void polypad_initialize_grid() {
     //quantize button
     hal_plot_led(TYPEPAD, 40, 1, 0, 1);
     g_GridColors[40] = 1;
+    
+    //stop clips button
+    hal_plot_led(TYPEPAD, 8, 1, 0, 0);
+    g_GridColors[8] = 1;
 }
 
 u16 polypad_bpm_to_ms(u8 bpm) {
@@ -337,9 +400,12 @@ u8 polypad_note_to_led_intensity(u8 startingNote) {
 }
 
 u8 polypad_semitoneoffset_to_index(u8 startIndex, u8 startNote, u8 offset) {
-    u8 y = polypad_index_to_x(startIndex);
+    u8 y = polypad_index_to_y(startIndex);
+    u8 x = polypad_index_to_x(startIndex);
+    
     u8 newY = y + offset % 5;
-    u8 newX = offset - (5 * newY);
+    u8 newX = x + offset - (5 * newY);
+    
     return polypad_xy_to_index(newX, newY);
 }
 
@@ -359,8 +425,10 @@ void polypad_make_note(u8* startingNote, struct Arpeggiator* arpeggiator, u8 arp
 void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex) {
     hal_send_midi(DINMIDI, NOTEON | g_Midi_Channel, note, 127);
     
-    if(padIndex % 10 != 9)
+    u8 ones = padIndex % 10;
+    if(ones != 9 && ones != 0 && !flag_editingQuantize && !flag_editingTempo) {
         polypad_pad_light_on(padIndex);
+    }
     
     g_ActiveNotes[arpIndex][0] = note;
     g_ActiveNotes[arpIndex][1] = padIndex;
@@ -370,7 +438,10 @@ void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex) {
     hal_send_midi(DINMIDI, NOTEOFF | g_Midi_Channel, note, 0);
     g_ActiveNotes[arpIndex][0] = 0;
     g_ActiveNotes[arpIndex][1] = padIndex;
-    polypad_pad_light_restore(padIndex);
+    
+    if(!flag_editingTempo && !flag_editingQuantize) {
+        polypad_pad_light_restore(padIndex);
+    }
 }
 
 void polypad_on_beat(u8* startingNote) {

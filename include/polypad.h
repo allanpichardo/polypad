@@ -38,6 +38,7 @@ void polypad_track_play_down(u8 index);
 void polypad_track_play_up(u8 index);
 void polypad_quantize_down(void);
 void polypad_quantize_up(void);
+void polypad_stop_clip_down(void);
 
 u8 polypad_xy_to_index(u8 x, u8 y);
 u8 polypad_index_to_y(u8 index);

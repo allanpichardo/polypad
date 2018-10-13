@@ -84,6 +84,8 @@ void app_surface_event(u8 type, u8 index, u8 value)
                     polypad_click_down(polypad_ms_to_bpm(g_Ticks_ms));
                 } else if(index > 10 && index < 89 && (index % 10) < 9 && (index % 10) > 0){
                     polypad_pad_down(index, &g_Note_Start);
+                } else if(index == 8) {
+                    polypad_stop_clip_down();
                 }
             } else {
                 if(index == 40) {

@@ -12,15 +12,18 @@ void arpeggiator_init(struct Arpeggiator* arpeggiator) {
     
     arpeggiator->length = 8;
     arpeggiator->index = 0;
+    
     arpeggiator->state.isPlaying = 0;
     arpeggiator->state.isLatched = 0;
+    
     arpeggiator->sequence.length = 8;
+    arpeggiator->sequence.onsets = 5;
     
     u8 sequence[16] = {1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0};
     memcpy(arpeggiator->sequence.sequence, sequence, sizeof(sequence));
 }
 
-void arpeggiator_computeArp(struct Arpeggiator* arpeggiator) {
+void _arpeggiator_computeArp(struct Arpeggiator* arpeggiator) {
     arpeggiator->length = arpeggiator->sequence.length;
     
     for(u8 i = 0; i < arpeggiator->sequence.length; i++) {
@@ -30,12 +33,12 @@ void arpeggiator_computeArp(struct Arpeggiator* arpeggiator) {
 
 void arpeggiator_setPatern(struct Arpeggiator* arpeggiator, const u8 onsets, const u8 length) {
     sequence_generate(&arpeggiator->sequence, onsets, length);
-    arpeggiator_computeArp(arpeggiator);
+    _arpeggiator_computeArp(arpeggiator);
 }
 
 void arpeggiator_shift(struct Arpeggiator* arpeggiator, const u8 steps) {
     sequence_rotate(&arpeggiator->sequence, steps);
-    arpeggiator_computeArp(arpeggiator);
+    _arpeggiator_computeArp(arpeggiator);
 }
 
 void arpeggiator_setScale(struct Arpeggiator* arpeggiator, enum Scale scale) {
@@ -51,7 +54,7 @@ void arpeggiator_setScale(struct Arpeggiator* arpeggiator, enum Scale scale) {
             break;
         }
     }
-    arpeggiator_computeArp(arpeggiator);
+    _arpeggiator_computeArp(arpeggiator);
 }
 
 
