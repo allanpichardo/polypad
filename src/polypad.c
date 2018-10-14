@@ -289,7 +289,7 @@ void polypad_draw_quantize_menu(u8 trackId) {
         }
     }
     
-    char midiOn = g_Midi_Channel[trackId - 1];
+    char midiOn = g_Midi_Channel[trackId];
     for(u8 i = 2; i > 0; i--) {
         for(u8 j = 1; j < 9; j++) {
             u8 idx = (i * 10) + j;
