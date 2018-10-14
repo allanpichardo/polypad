@@ -126,11 +126,11 @@ void polypad_pad_down(u8 index, u8* startingNote) {
                 break;
             }
             case 2: {
-                g_Midi_Channel[g_Quantize_Track - 1] = ones - 1;
+                g_Midi_Channel[g_Quantize_Track] = ones - 1;
                 break;
             }
             case 1: {
-                g_Midi_Channel[g_Quantize_Track - 1] = ones + 7;
+                g_Midi_Channel[g_Quantize_Track] = ones + 7;
                 break;
             }
         }
