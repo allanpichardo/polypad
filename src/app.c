@@ -185,6 +185,8 @@ void app_timer_event()
         
         // send a clock pulse up the USB
         hal_send_midi(USBSTANDALONE, MIDITIMINGCLOCK, 0, 0);
+        hal_send_midi(USBMIDI, MIDITIMINGCLOCK, 0, 0);
+        hal_send_midi(DINMIDI, MIDITIMINGCLOCK, 0, 0);
         
         //blink click button
         g_Tempo_Blink = !g_Tempo_Blink;

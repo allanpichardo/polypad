@@ -16,7 +16,7 @@
  Globals
  */
 u8 g_GridColors[100] = {0};
-u8 g_Midi_Channel = 0;
+u8 g_Midi_Channel[8] = {0};
 u8 g_Quantize_Track = 0;
 u8 g_ActiveNotes[8][2] = {0};
 static struct Arpeggiator g_arpeggiators[8];
@@ -125,6 +125,14 @@ void polypad_pad_down(u8 index, u8* startingNote) {
                 arpeggiator_setPatern(&g_arpeggiators[g_Quantize_Track], g_arpeggiators[g_Quantize_Track].sequence.onsets, ones + 8);
                 break;
             }
+            case 2: {
+                g_Midi_Channel[g_Quantize_Track - 1] = ones - 1;
+                break;
+            }
+            case 1: {
+                g_Midi_Channel[g_Quantize_Track - 1] = ones + 7;
+                break;
+            }
         }
         
         polypad_draw_quantize_menu(g_Quantize_Track);
@@ -203,6 +211,7 @@ void polypad_pad_up(u8 index) {
                 g_arpeggiators[i].state.isPlaying = 0;
                 g_arpeggiators[i].index = 0;
                 g_arpeggiators[i].state.baseNote = 0;
+                g_arpeggiators[i].state.step = 0;
                 return;
             }
         }
@@ -277,6 +286,19 @@ void polypad_draw_quantize_menu(u8 trackId) {
                 hal_plot_led(TYPEPAD, idx, 0, 0, 0);
             }
             lengthOn--;
+        }
+    }
+    
+    char midiOn = g_Midi_Channel[trackId - 1];
+    for(u8 i = 2; i > 0; i--) {
+        for(u8 j = 1; j < 9; j++) {
+            u8 idx = (i * 10) + j;
+            if(midiOn >= 0) {
+                hal_plot_led(TYPEPAD, idx, MAXLED, MAXLED, MAXLED);
+            } else {
+                hal_plot_led(TYPEPAD, idx, 0, 0, 0);
+            }
+            midiOn--;
         }
     }
 }
@@ -427,7 +449,9 @@ void polypad_make_note(u8* startingNote, struct Arpeggiator* arpeggiator, u8 arp
 }
 
 void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex) {
-    hal_send_midi(DINMIDI, NOTEON | g_Midi_Channel, note, 127);
+    hal_send_midi(DINMIDI, NOTEON | g_Midi_Channel[arpIndex], note, 127);
+    hal_send_midi(USBSTANDALONE, NOTEON | g_Midi_Channel[arpIndex], note, 127);
+    hal_send_midi(USBMIDI, NOTEON | g_Midi_Channel[arpIndex], note, 127);
     
     u8 ones = padIndex % 10;
     if(ones != 9 && ones != 0 && !flag_editingQuantize && !flag_editingTempo) {
@@ -439,7 +463,10 @@ void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex) {
 }
 
 void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex) {
-    hal_send_midi(DINMIDI, NOTEOFF | g_Midi_Channel, note, 0);
+    hal_send_midi(DINMIDI, NOTEOFF | g_Midi_Channel[arpIndex], note, 0);
+    hal_send_midi(USBSTANDALONE, NOTEOFF | g_Midi_Channel[arpIndex], note, 0);
+    hal_send_midi(USBMIDI, NOTEOFF | g_Midi_Channel[arpIndex], note, 0);
+    
     g_ActiveNotes[arpIndex][0] = 0;
     g_ActiveNotes[arpIndex][1] = padIndex;
     
