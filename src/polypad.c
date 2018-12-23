@@ -442,11 +442,11 @@ void polypad_initialize_grid(u16* ms_ticks) {
 }
 
 u16 polypad_bpm_to_ms(u8 bpm) {
-    return 7500 / bpm;
+    return 15000 / bpm;
 }
 
 u8 polypad_ms_to_bpm(u16 ms) {
-    return 7500 / ms;
+    return 15000 / ms;
 }
 
 u8 polypad_xy_to_midi_note(u8 startingNote, u8 x, u8 y) {

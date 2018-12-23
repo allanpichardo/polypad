@@ -20,7 +20,7 @@ void arpeggiator_init(struct Arpeggiator* arpeggiator) {
     arpeggiator->sequence.onsets = 5;
     
     arpeggiator->time_to_next_note = 0;
-    arpeggiator->multiplier = 3;
+    arpeggiator->multiplier = 1;
     
     u8 sequence[16] = {1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0};
     memcpy(arpeggiator->sequence.sequence, sequence, sizeof(sequence));
