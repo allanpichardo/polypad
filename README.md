@@ -8,6 +8,8 @@ Standalone polymetric arpeggiator firmware for the Launchpad Pro
 
 # Features
 - Play 8 independent sequences
+- MIDI out to up to 8 devices
+- 8 scales to choose from
 - Independently dial combinations of Euclidean rhythms
 
 # Uploading to a Launchpad Pro
