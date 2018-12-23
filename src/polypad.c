@@ -135,6 +135,7 @@ void polypad_pad_down(u8 index, u8* startingNote) {
                 break;
             }
             case 3: {
+                g_arpeggiators[g_Quantize_Track].multiplier = ones;
                 break;
             }
             case 2: {
@@ -301,10 +302,19 @@ void polypad_draw_quantize_menu(u8 trackId) {
         }
     }
     
-    u8 idx = 41 + g_Scale[trackId];
+    u8 scaleIdx = 41 + g_Scale[trackId];
     for(u8 i = 41; i < 49; i++) {
-        if(i == idx) {
+        if(i == scaleIdx) {
             hal_plot_led(TYPEPAD, i, MAXLED, 0, 0);
+        } else {
+            hal_plot_led(TYPEPAD, i, 0, 0, 0);
+        }
+    }
+    
+    u8 subdivisionMultiplier = 30 + g_arpeggiators[trackId].multiplier;
+    for(u8 i = 31; i < 39; i++) {
+        if(i == subdivisionMultiplier) {
+            hal_plot_led(TYPEPAD, i, 0, 0, MAXLED);
         } else {
             hal_plot_led(TYPEPAD, i, 0, 0, 0);
         }
@@ -432,11 +442,11 @@ void polypad_initialize_grid(u16* ms_ticks) {
 }
 
 u16 polypad_bpm_to_ms(u8 bpm) {
-    return 60000 / bpm;
+    return 7500 / bpm;
 }
 
 u8 polypad_ms_to_bpm(u16 ms) {
-    return 60000 / ms;
+    return 7500 / ms;
 }
 
 u8 polypad_xy_to_midi_note(u8 startingNote, u8 x, u8 y) {
@@ -468,7 +478,7 @@ void polypad_make_note(u8* startingNote, struct Arpeggiator* arpeggiator, u8 arp
         polypad_note_on(arpeggiator->arpeggio[stepIndex] + arpeggiator->state.baseNote, arpIndex, newIndex);
     }
     
-    arpeggiator->time_to_next_note = g_Ticks;
+    arpeggiator->time_to_next_note = g_Ticks << arpeggiator->multiplier;
     
     arpeggiator->state.step = stepIndex + 1;
 }
@@ -485,7 +495,7 @@ void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex) {
     
     g_ActiveNotes[arpIndex].note = note;
     g_ActiveNotes[arpIndex].padIndex = padIndex;
-    g_ActiveNotes[arpIndex].ms_until_off = g_Ticks;
+    g_ActiveNotes[arpIndex].ms_until_off = g_Ticks << g_arpeggiators[arpIndex].multiplier;
 }
 
 void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex) {

@@ -50,8 +50,8 @@
 
 // store ADC frame pointer
 static const u16 *g_ADC = 0;
-static u16 g_Ticks_ms = 500;
-static u16 ms = 500;
+static u16 g_Ticks_ms = 63;
+static u16 ms = 63;
 static u8 g_Tempo_Blink = 0;
 static u8 g_Note_Start = 60;
 
@@ -179,7 +179,7 @@ void app_cable_event(u8 type, u8 value)
 void app_timer_event()
 {
     
-    if (++ms >= g_Ticks_ms)
+    if (++ms >= g_Ticks_ms * 8)
     {
         ms = 0;
         
