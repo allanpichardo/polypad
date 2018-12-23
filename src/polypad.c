@@ -18,6 +18,7 @@
  */
 u8 g_GridColors[100] = {0};
 u8 g_Midi_Channel[8] = {0};
+u8 g_Scale[8] = {0};
 u8 g_Quantize_Track = 0;
 u8 g_Ticks = 0;
 static struct Note g_ActiveNotes[8];
@@ -125,6 +126,15 @@ void polypad_pad_down(u8 index, u8* startingNote) {
             }
             case 5: {
                 arpeggiator_setPatern(&g_arpeggiators[g_Quantize_Track], g_arpeggiators[g_Quantize_Track].sequence.onsets, ones + 8);
+                break;
+            }
+            case 4: {
+                enum Scale scale = ones - 1;
+                g_Scale[g_Quantize_Track] = scale;
+                arpeggiator_setScale(&g_arpeggiators[g_Quantize_Track], scale);
+                break;
+            }
+            case 3: {
                 break;
             }
             case 2: {
@@ -288,6 +298,15 @@ void polypad_draw_quantize_menu(u8 trackId) {
                 hal_plot_led(TYPEPAD, idx, 0, 0, 0);
             }
             lengthOn--;
+        }
+    }
+    
+    u8 idx = 41 + g_Scale[trackId];
+    for(u8 i = 41; i < 49; i++) {
+        if(i == idx) {
+            hal_plot_led(TYPEPAD, i, MAXLED, 0, 0);
+        } else {
+            hal_plot_led(TYPEPAD, i, 0, 0, 0);
         }
     }
     

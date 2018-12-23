@@ -45,13 +45,38 @@ void arpeggiator_shift(struct Arpeggiator* arpeggiator, const u8 steps) {
 
 void arpeggiator_setScale(struct Arpeggiator* arpeggiator, enum Scale scale) {
     switch(scale) {
-        case majorScale: {
+        case major: {
             u8 maj[16] = {0,2,4,5,7,9,11,12,14,16,17,19,21,23,24};
             memcpy(arpeggiator->scale, maj, sizeof(maj));
             break;
         }
-        case minorScale: {
+        case minor: {
             u8 min[16] = {0,2,3,5,7,8,10,12,14,15,17,19,20,22,24};
+            memcpy(arpeggiator->scale, min, sizeof(min));
+            break;
+        }
+        case dorian: {
+            u8 min[16] = {0,2,3,5,7,9,10,12,14,15,17,19,21,22,24};
+            memcpy(arpeggiator->scale, min, sizeof(min));
+            break;
+        }
+        case phyrgian: {
+            u8 min[16] = {0,1,3,5,7,8,10,12,13,15,17,19,20,22,24};
+            memcpy(arpeggiator->scale, min, sizeof(min));
+            break;
+        }
+        case lydian: {
+            u8 min[16] = {0,2,4,6,7,9,11,12,14,16,18,19,21,23,24};
+            memcpy(arpeggiator->scale, min, sizeof(min));
+            break;
+        }
+        case mixolydian: {
+            u8 min[16] = {0,2,4,5,7,9,10,12,14,16,17,19,21,22,24};
+            memcpy(arpeggiator->scale, min, sizeof(min));
+            break;
+        }
+        case locrian: {
+            u8 min[16] = {0,1,3,5,6,8,10,12,13,15,17,18,20,22,24};
             memcpy(arpeggiator->scale, min, sizeof(min));
             break;
         }

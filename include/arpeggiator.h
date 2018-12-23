@@ -6,7 +6,7 @@
 #include "app_defs.h"
 
 enum Scale {
-    majorScale, minorScale
+    major, minor, dorian, phyrgian, lydian, mixolydian, locrian
 };
 
 struct ArpeggiatorState {
@@ -27,9 +27,9 @@ struct Arpeggiator {
 };
 
 void arpeggiator_init(struct Arpeggiator* arpeggiator);
-void _apreggiator_computeArp(struct Arpeggiator* arpeggiator);
+void _arpeggiator_computeArp(struct Arpeggiator* arpeggiator);
 void arpeggiator_setPatern(struct Arpeggiator* arpeggiator, u8 const onsets, u8 const length);
-void apreggiator_shift(struct Arpeggiator* arpeggiator, u8 const steps);
-void apreggiator_setScale(struct Arpeggiator* arpeggiator, enum Scale scale);
+void arpeggiator_shift(struct Arpeggiator* arpeggiator, u8 const steps);
+void arpeggiator_setScale(struct Arpeggiator* arpeggiator, enum Scale scale);
 
 #endif
