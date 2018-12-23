@@ -21,6 +21,7 @@
 		B3107BC9216C26490099A95C /* simulator-osx.c in Sources */ = {isa = PBXBuildFile; fileRef = B3107BC0216C16C00099A95C /* simulator-osx.c */; };
 		B3107BCB216C3A2A0099A95C /* polypad.h in Headers */ = {isa = PBXBuildFile; fileRef = B3107BCA216C3A2A0099A95C /* polypad.h */; };
 		B3107BCD216C3A630099A95C /* polypad.c in Sources */ = {isa = PBXBuildFile; fileRef = B3107BCC216C3A630099A95C /* polypad.c */; };
+		B3955B8121CF1C300070069C /* note.h in Headers */ = {isa = PBXBuildFile; fileRef = B3955B8021CF1C300070069C /* note.h */; };
 		B3F5B9DA216CF94700A20B50 /* dotmatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = B3F5B9D9216CF94700A20B50 /* dotmatrix.h */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		B3107BC4216C1C0F0099A95C /* simulator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = simulator.c; path = ../../tools/simulator.c; sourceTree = "<group>"; };
 		B3107BCA216C3A2A0099A95C /* polypad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = polypad.h; sourceTree = "<group>"; };
 		B3107BCC216C3A630099A95C /* polypad.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = polypad.c; sourceTree = "<group>"; };
+		B3955B8021CF1C300070069C /* note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = note.h; sourceTree = "<group>"; };
 		B3F5B9D9216CF94700A20B50 /* dotmatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dotmatrix.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +151,7 @@
 				B3107B68216BE7AE0099A95C /* sequence.h */,
 				B3107BCA216C3A2A0099A95C /* polypad.h */,
 				B3F5B9D9216CF94700A20B50 /* dotmatrix.h */,
+				B3955B8021CF1C300070069C /* note.h */,
 			);
 			name = include;
 			path = ../include;
@@ -246,6 +249,7 @@
 				B3107B96216BE9050099A95C /* app.h in Headers */,
 				B3F5B9DA216CF94700A20B50 /* dotmatrix.h in Headers */,
 				B3107B97216BE9050099A95C /* sequence.h in Headers */,
+				B3955B8121CF1C300070069C /* note.h in Headers */,
 				B3107BCB216C3A2A0099A95C /* polypad.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

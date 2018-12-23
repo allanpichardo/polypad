@@ -9,6 +9,7 @@
 #include "dotmatrix.h"
 #include "arpeggiator.h"
 #include "sequence.h"
+#include "note.h"
 #include "app_defs.h"
 #include "app.h"
 
@@ -18,7 +19,8 @@
 u8 g_GridColors[100] = {0};
 u8 g_Midi_Channel[8] = {0};
 u8 g_Quantize_Track = 0;
-u8 g_ActiveNotes[8][2] = {0};
+u8 g_Ticks = 0;
+static struct Note g_ActiveNotes[8];
 static struct Arpeggiator g_arpeggiators[8];
 
 /**
@@ -358,7 +360,9 @@ void polypad_color_octave_arrows(u8* startingNote) {
     g_GridColors[92] = octLed;
 }
 
-void polypad_initialize_grid() {
+void polypad_initialize_grid(u16* ms_ticks) {
+    
+    g_Ticks = *ms_ticks;
     
     //note grid
     u8 chromatic_scale[12] = {2,0,1,0,1,1,0,1,0,1,0,1};
@@ -409,11 +413,11 @@ void polypad_initialize_grid() {
 }
 
 u16 polypad_bpm_to_ms(u8 bpm) {
-    return 30000 / bpm;
+    return 60000 / bpm;
 }
 
 u8 polypad_ms_to_bpm(u16 ms) {
-    return 30000 / ms;
+    return 60000 / ms;
 }
 
 u8 polypad_xy_to_midi_note(u8 startingNote, u8 x, u8 y) {
@@ -445,6 +449,8 @@ void polypad_make_note(u8* startingNote, struct Arpeggiator* arpeggiator, u8 arp
         polypad_note_on(arpeggiator->arpeggio[stepIndex] + arpeggiator->state.baseNote, arpIndex, newIndex);
     }
     
+    arpeggiator->time_to_next_note = g_Ticks;
+    
     arpeggiator->state.step = stepIndex + 1;
 }
 
@@ -458,8 +464,9 @@ void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex) {
         polypad_pad_light_on(padIndex);
     }
     
-    g_ActiveNotes[arpIndex][0] = note;
-    g_ActiveNotes[arpIndex][1] = padIndex;
+    g_ActiveNotes[arpIndex].note = note;
+    g_ActiveNotes[arpIndex].padIndex = padIndex;
+    g_ActiveNotes[arpIndex].ms_until_off = g_Ticks;
 }
 
 void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex) {
@@ -467,21 +474,36 @@ void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex) {
     hal_send_midi(USBSTANDALONE, NOTEOFF | g_Midi_Channel[arpIndex], note, 0);
     hal_send_midi(USBMIDI, NOTEOFF | g_Midi_Channel[arpIndex], note, 0);
     
-    g_ActiveNotes[arpIndex][0] = 0;
-    g_ActiveNotes[arpIndex][1] = padIndex;
+    g_ActiveNotes[arpIndex].note = 0;
+    g_ActiveNotes[arpIndex].padIndex = padIndex;
+    g_ActiveNotes[arpIndex].ms_until_off = 0;
     
     if(!flag_editingTempo && !flag_editingQuantize) {
         polypad_pad_light_restore(padIndex);
     }
 }
 
-void polypad_on_beat(u8* startingNote) {
+void polypad_on_beat() {
+    
+}
+
+void polypad_on_tick(u8* startingNote, u16* ms_ticks) {
+    g_Ticks = *ms_ticks;
+    
     for(u8 i = 0; i < 8; i++) {
-        if(g_ActiveNotes[i][0]) {
-            polypad_note_off(g_ActiveNotes[i][0], i, g_ActiveNotes[i][1]);
+        if(g_ActiveNotes[i].note) {
+            g_ActiveNotes[i].ms_until_off--;
+            if(g_ActiveNotes[i].ms_until_off == 0) {
+                polypad_note_off(g_ActiveNotes[i].note, i, g_ActiveNotes[i].padIndex);
+            }
         }
+    }
+    for(u8 i = 0; i < 8; i++) {
         if(g_arpeggiators[i].state.isPlaying || g_arpeggiators[i].state.isLatched) {
-            polypad_make_note(startingNote, &g_arpeggiators[i], i);
+            g_arpeggiators[i].time_to_next_note--;
+            if(g_arpeggiators[i].time_to_next_note == 0) {
+                polypad_make_note(startingNote, &g_arpeggiators[i], i);
+            }
         }
     }
 }

@@ -13,14 +13,15 @@
 #include "app.h"
 #include "arpeggiator.h"
 
-void polypad_on_beat(u8* startingNote);
+void polypad_on_beat(void);
+void polypad_on_tick(u8* startingNote, u16* ms_ticks);
 void polypad_note_on(u8 note, u8 arpIndex, u8 padIndex);
 void polypad_note_off(u8 note, u8 arpIndex, u8 padIndex);
 void polypad_make_note(u8* startingNote, struct Arpeggiator* arpeggiator, u8 arpIndex);
 u8 polypad_semitoneoffset_to_index(u8 startIndex, u8 startNote, u8 offset);
 
 void polypad_clear_grid(void);
-void polypad_initialize_grid(void);
+void polypad_initialize_grid(u16* ms_ticks);
 void polypad_restore_grid_from_store(void);
 void polypad_draw_tempo_select(u8 tempo);
 void polypad_draw_quantize_menu(u8 trackId);

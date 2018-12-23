@@ -50,8 +50,8 @@
 
 // store ADC frame pointer
 static const u16 *g_ADC = 0;
-static u16 g_Ticks_ms = 300;
-static u16 ms = 300;
+static u16 g_Ticks_ms = 500;
+static u16 ms = 500;
 static u8 g_Tempo_Blink = 0;
 static u8 g_Note_Start = 60;
 
@@ -196,9 +196,10 @@ void app_timer_event()
             hal_plot_led(TYPEPAD, 70, 0, 0, 0);
         }
         
-        polypad_on_beat(&g_Note_Start);
-        
+        polypad_on_beat();
     }
+    
+    polypad_on_tick(&g_Note_Start, &g_Ticks_ms);
     
 /*
 	// alternative example - show raw ADC data as LEDs
@@ -239,7 +240,7 @@ void app_init(const u16 *adc_raw)
     // example - load button states from flash
     //hal_read_flash(0, g_Buttons, BUTTON_COUNT);
     
-    polypad_initialize_grid();
+    polypad_initialize_grid(&g_Ticks_ms);
 	
 	// store off the raw ADC frame pointer for later use
 	g_ADC = adc_raw;

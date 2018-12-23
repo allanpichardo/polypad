@@ -18,6 +18,7 @@ struct ArpeggiatorState {
 
 struct Arpeggiator {
     u8 index;
+    u16 time_to_next_note;
     u8 scale[16];
     u8 arpeggio[16];
     u8 length;
