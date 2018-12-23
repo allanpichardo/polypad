@@ -4,7 +4,7 @@
 Standalone polymetric arpeggiator firmware for the Launchpad Pro
 
 ## Latest Release
-- [v 0.7](https://github.com/allanpichardo/polypad/releases/download/0.7)
+- [v 0.7.1](https://github.com/allanpichardo/polypad/releases/tag/0.7.1)
 
 # Features
 - Play 8 independent sequences
