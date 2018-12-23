@@ -59,4 +59,5 @@ tools/osx/simulator.xcodeproj/xcuserdata
 !.vscode/extensions.json
 
 .DS_Store
+Polypad/.DS_Store
 # End of https://www.gitignore.io/api/visualstudiocode
